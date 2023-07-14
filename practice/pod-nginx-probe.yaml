@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-probe
+  labels:
+    team: finance
+    version: 2.0.0
+    env: production
+  annotations:
+    desc: Merupakan sebuat annotation, annotation tidak bisa di query seperti labels, boleh pake spasi dan boleh panjang
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 80
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        timeoutSeconds: 1
+        successThreshold: 1
+        failureThreshold: 3
